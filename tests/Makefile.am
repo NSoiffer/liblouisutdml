@@ -13,6 +13,7 @@ SUBDIRS =					\
 	printPageNumberRange_02.test		\
 	printPageNumberRange_03.test		\
 	endNotes.test				\
+	mathml_nemth				\
 	test_mathml_woluwe
 
 AM_CPPFLAGS =					\
@@ -174,7 +175,19 @@ dist_suite_TESTS =				\
 	test_mathml_woluwe/test_116.test	\
 	test_mathml_woluwe/test_117.test	\
 	test_mathml_woluwe/test_118.test	\
-	test_mathml_woluwe/test_119.test
+	test_mathml_woluwe/test_119.test	\
+	mathml_nemeth/test_general_001		\
+	mathml_nemeth/test_mfrac_01		\
+	mathml_nemeth/test_mfrac_02		\
+	mathml_nemeth/test_mfrac_03		\
+	mathml_nemeth/test_mfrac_04		\
+	mathml_nemeth/test_mfrac_05		\
+	mathml_nemeth/test_mfrac_06		\
+	mathml_nemeth/test_mfrac_07		\
+	mathml_nemeth/test_mroot_01		\
+	mathml_nemeth/test_msqrt_01		\
+	mathml_nemeth/test_msqrt_02		\
+	mathml_nemeth/test_msqrt_03
 
 XFAIL_TESTS +=					\
 	pagenum.test				\
