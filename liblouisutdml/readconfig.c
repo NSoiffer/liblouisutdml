@@ -36,7 +36,6 @@
 #include <stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <internal.h>
 #include "louisutdml.h"
 #include "sem_names.h"
 #include <ctype.h>
@@ -90,9 +89,9 @@ configureError (lbu_FileInfo * nested, char *format, ...)
 #endif
   va_end (arguments);
   if (nested)
-    logMessage (LOG_ERROR, "%s:%d: %s", nested->fileName, nested->lineNumber, buffer);
+    logMessage (LOU_LOG_ERROR, "%s:%d: %s", nested->fileName, nested->lineNumber, buffer);
   else
-    logMessage (LOG_ERROR, "%s", buffer);
+    logMessage (LOU_LOG_ERROR, "%s", buffer);
   errorCount++;
 }
 
@@ -241,7 +240,7 @@ findTable (lbu_FileInfo * nested)
   if (trialPath[0] == 0)
     {
       if (lou_getTable (nested->value) != NULL)
-	strcpy (trialPath, _lou_getLastTableList());
+	strcpy (trialPath, nested->value);
     }
   if (trialPath[0] == 0)
     {
@@ -1313,7 +1312,7 @@ read_configuration_file (const char *configFileList, const char
   char subFile[MAXNAMELEN];
   int listLength;
   int currentListPos = 0;
-  logMessage(LOG_INFO, "Begin read_configuration_file");
+  logMessage(LOU_LOG_INFO, "Begin read_configuration_file");
   errorCount = 0;
   fatalErrorCount = 0;
   /*Process logFileName later, after writeablePath is set */
@@ -1358,7 +1357,7 @@ read_configuration_file (const char *configFileList, const char
       style->action = k;
     }
   ud->input_encoding = lbu_utf8;
-  ud->output_encoding = ascii8;
+  ud->output_encoding = lbu_ascii8;
   *ud->print_page_number = '_';
   *ud->print_page_number_first = '_';
   ud->string_escape = ',';
@@ -1464,7 +1463,7 @@ read_configuration_file (const char *configFileList, const char
       if (ud->page_right <= 0 || ud->page_bottom <= 0)
 	{
 	  logMessage
-	    (LOG_ERROR, "For UTDML paper witdth and paper height must be specified.");
+	    (LOU_LOG_ERROR, "For UTDML paper witdth and paper height must be specified.");
 	  lbu_free ();
 	  return 0;
 	}
@@ -1474,6 +1473,6 @@ read_configuration_file (const char *configFileList, const char
       ud->back_text = textDevice;
       ud->back_line_length = 70;
     }
-  logMessage(LOG_INFO, "Finish read_configuration_file");
+  logMessage(LOU_LOG_INFO, "Finish read_configuration_file");
   return 1;
 }
